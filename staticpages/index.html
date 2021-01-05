@@ -581,10 +581,10 @@ function doCreateP(){
 
 function doUpdateP(){
             person = getPersonFromForm()
-            updateServer(person)
+            updateServerP(person)
         }
 
-function updateServer(person){
+function updateServerP(person){
            $.ajax({
                 url: "/person/"+person.personID ,
                 data: JSON.stringify(person),
@@ -593,7 +593,7 @@ function updateServer(person){
                 contentType: "application/json; charset=utf-8",
                 success: function (result) {
                     console.log(result)
-                    updateTableRow(person)
+                    updateTableRowP(person)
                     showDisplayP()
                     clearFormP()
 
@@ -625,7 +625,7 @@ function doDeleteP(thisElem){
         }
         
 
-function updateTableRow(person){
+function updateTableRowP(person){
             rowElement = document.getElementById(person.personID)
             rowElement.cells[1].firstChild.textContent = person.name
             rowElement.cells[2].firstChild.textContent = person.age

@@ -8,8 +8,9 @@ def home():
     if not 'username' in session:
         return redirect(url_for('login'))
     
-    return 'welcome ' + session['username'] +\
-        '<br><a href="'+url_for('logout')+'">logout</a>'
+    # return 'welcome ' + session['username'] +\
+       #  '<br><a href="'+url_for('logout')+'">logout</a>'
+    return redirect('http://127.0.0.1:5000/index.html')
 
 @app.route('/login')
 def login():

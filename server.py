@@ -9,6 +9,7 @@ app = Flask(__name__, static_url_path='', static_folder='staticpages')
 def index():
     return "hello"
 
+
 #get all
 #curl http://127.0.0.1:5000/car
 
@@ -63,7 +64,7 @@ def createP():
         "name": request.json["name"],
         "age": request.json["age"],
         "sex": request.json["sex"],
-        "cregistration": request.json["cregistration"],
+        "registration": request.json["registration"],
         "isStudent": request.json["isStudent"]
 
     }
@@ -109,8 +110,8 @@ def updateP(personID):
         currentPerson['age'] = request.json['age']
     if 'sex' in request.json:
         currentPerson['sex'] = request.json['sex']
-    if 'cregistration' in request.json:
-        currentPerson['cregistration'] = request.json['cregistration']
+    if 'registration' in request.json:
+        currentPerson['registration'] = request.json['registration']
     if 'isStudent' in request.json:
         currentPerson['isStudent'] = request.json['isStudent']
     personDao.updateP(currentPerson)
