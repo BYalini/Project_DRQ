@@ -1,0 +1,702 @@
+<html>
+    <head>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+                integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 10px;
+            background: #f1f1f1;
+        }
+        .name {
+            border: 4px solid green;
+            border-radius: 15%;  
+            padding: 35px;
+        } 
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        /* Style the topnav links */
+        .topnav a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        /* Change color on hover */
+        .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+        }
+        /* Style the header */
+        header {
+	        overflow:auto;
+	        background-color: #666;
+	        font-size: 18px;
+	        color: white;
+        }
+        .header img {
+	        float: left;
+	        width: 350px;
+	        padding: 30px  
+        }
+
+        .header p{
+	        padding: 30px;
+	        position: relative;
+        }
+        /* Create two unequal columns that floats next to each other */
+        /* Left column */
+        .leftcolumn {   
+        float: left;
+        width: 75%;
+        padding-top: 20px;
+        padding-left: 20px
+        }
+
+        /* Right column */
+        .rightcolumn {
+        float: left;
+        width: 25%;
+        background-color: #f1f1f1;
+        padding-top: 20px;
+        padding-left: 20px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        } 
+        /* Add a card effect for articles */
+        .card {
+        background-color: white;
+        padding: 20px 15px;
+        margin-top: 20px;
+        }
+        /* Clear floats after the columns */
+        .row:after {
+        content: "";
+        display: table;
+        clear: both;
+        }
+
+        /* Style the footer */
+        footer {
+        background-color: #777;
+        padding: 10px;
+        color: white;
+        }
+
+        /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 800px) {
+        .leftcolumn, .rightcolumn {   
+            width: 100%;
+            padding: 0;
+        }
+        }
+
+        /* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+        @media screen and (max-width: 400px) {
+        .topnav a {
+            float: none;
+            width: 100%;
+        }
+        }
+ 
+
+        table{
+            border-collapse: collapse;
+            width: 100%;
+            }
+
+            th, td {
+            border: 3px solid #ddd;
+            text-align: left;
+            padding: 8px;
+            }
+
+            tr:nth-child(even){background-color: #f2f2f2}
+            tr:hover {background-color: #ddd;}
+            th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: grey;
+            color: white;
+            }
+
+    </style> 
+      
+    </head>
+    
+    <body>
+    <!--Navigation Bar -->
+        <div class="topnav">
+        <a href="index.html">Home</a>
+        <a style="float:right" class="active" href="login_css.html">Login</a>
+        </div>
+
+        <center >
+            <h2  class="name" id="domstyle" >Car Rental</h2>
+        </center>
+
+        <header>
+            <div class="header">
+                <img src="img/cars.png" alt="cars" title="cars"  >
+                <p>Here you can find your car details and your personal details</p>
+            </div>
+        </header>
+    <div class="row">
+
+<!--car -->
+        <div class="leftcolumn">
+            <div id="display" class="card">
+                <center> <h3 style="background-color:green" >Cars Details</h3></center>              
+                <table id="carTable">
+                    <tr>
+                        <th>Registration</th><th>Make</th><th>Model</th><th>Colour</th><th>Mileage</th><th>EngineSize</th><th></th><th></th>
+                    </tr>                   
+                </table>
+                <button onClick="showCreate()">Create</button>
+            </div>
+            <div id="create-update" class="card" style="display:none">
+                <center ><h3 style="background-color:green" >Create-Edit-Car</h3></center>
+                <table id="createUpdateForm"  style="width:100%" >
+                    <tr>
+                        <td>Registration</td>
+                        <td><input type="text" name="registration" id="idInput"></td>
+                    </tr>
+                    <tr>
+                        <td>Make</td>
+                        <td><input type="text" name="make"></td>
+                    </tr>
+                    <tr>
+                        <td>Model</td>
+                        <td><input type="text" name="model"></td>
+                    </tr>
+                    <tr>    
+                        <td>Colour</td>
+                        <td><input type="text" name="colour"></td>
+                    </tr>
+                    <tr>    
+                        <td>Mileage</td>
+                        <td><input type="text" name="mileage"></td>
+                    </tr>
+                    <tr>    
+                        <td>EngineSize</td>
+                        <td><input type="text" name="engineSize"></td>
+                    </tr>				
+                    <tr >
+                        <td></td><td>
+                            <button id="create-button" onclick="doCreate()">Create</button>
+                            <button style="background-color:red;" onclick="location.href='/index.html';" >Cancel</button>     
+                            <button id="update-button" onclick="doUpdate()">update</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>      
+
+<!--person -->
+            <div id="displayP" class="card">
+                <center> <h3 style="background-color:green" >Person Details</h3></center>              
+                <table id="personTable">
+                    <tr>
+                        <th>PersonID</th><th>Name</th><th>Age</th><th>Sex [F/M]</th><th>Car Registration</th><th>isStudent [0/1]</th><th></th><th></th>
+                    </tr>                   
+                </table>
+                <button onClick="showCreateP()">Create</button>
+            </div>
+
+            <div id="create-updateP" class="card" style="display:none">
+                <center ><h3 style="background-color:green" >Create-Edit-Person</h3></center>
+                <table id="createUpdateFormP"  style="width:100%" >
+                    <tr>
+                        <td> PersonID</td>
+                        <td><input type="text" name="personID" id="personID"></td>
+                    </tr>
+                    <tr>
+                        <td>Name</td>
+                        <td><input type="text" name="name"></td>
+                    </tr>
+                    <tr>
+                        <td>Age</td>
+                        <td><input type="text" name="age"></td>
+                    </tr>
+                    <tr>    
+                        <td>Sex [F/M]</td>
+                        <td><input type="text" name="sex"></td>
+                    </tr>
+                    <tr>    
+                        <td>Car Registration</td>
+                        <td><input type="text" name="cregistration"></td>
+                    </tr>
+                    <tr>    
+                        <td>isStudent [0/1]</td>
+                        <td><input type="text" name="isStudent"></td>
+                    </tr>				
+                    <tr >
+                        <td></td><td>
+                            <button id="create-buttonP" onclick="doCreateP()">Create</button>
+                            <button style="background-color:red;" onclick="location.href='/index.html';" >Cancel</button>     
+                            <button id="update-buttonP" onclick="doUpdateP()">update</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>  
+
+
+        </div>
+
+	    <div class="rightcolumn">		
+		<div class="card">
+			<h2>Contact</h2>
+			<div><img style=' border-radius:80%; height: 100%; width: 100%; object-fit: contain' src="img/carpark.jpg" ></div>
+			<p>Yalini Brhanavan <br>
+			yalini.brhanava@gmail.com<br>
+			G00387915@gmit.ie<br>
+			<a href="https://www.linkedin.com/in/yalini-brhanavan/">linkedin</a>
+			</p>
+		</div>
+	    </div>
+    </div>
+<footer>
+	<h2 align ="center"> Thank you!</h2>	
+</footer>
+    </body>
+
+    <script>
+        function showCreate(){
+            document.getElementById('display').style.display = "none"
+            document.getElementById('update-button').style.display = "none"
+            document.getElementById('create-button').style.display = "block"
+            document.getElementById('create-update').style.display = "block"
+
+        }
+
+        function showUpdate(thisElem){
+            var rowElement = thisElem.parentNode.parentNode;
+            car = readCarFromRow(rowElement)
+            populateForm(car)
+            //registration = rowElement.getAttribute("id");
+
+            //document.getElementById("idInput").value = registration
+            //document.getElementById("idInput").disabled = true
+
+
+            document.getElementById('display').style.display = "none"
+            document.getElementById('update-button').style.display = "block"
+            document.getElementById('create-button').style.display = "none"
+            document.getElementById('create-update').style.display = "block"
+
+        }
+
+        function readCarFromRow(rowElement){
+            car = {}
+            car.registration = rowElement.getAttribute("id");
+            car.make = rowElement.cells[1].firstChild.textContent
+            car.model = rowElement.cells[2].firstChild.textContent
+            car.colour = rowElement.cells[3].firstChild.textContent
+            car.mileage = rowElement.cells[4].firstChild.textContent
+            car.engineSize = rowElement.cells[5].firstChild.textContent
+            
+            return car
+            
+        }
+
+        function populateForm(car){
+            var form = document.getElementById('createUpdateForm')
+
+            
+            form.querySelector('input[name="registration"]').value = car.registration
+            form.querySelector('input[name="registration"]').disabled=true
+            
+            form.querySelector('input[name="make"]').value = car.make
+            form.querySelector('input[name="model"]').value = car.model
+            form.querySelector('input[name="colour"]').value = car.colour 
+            form.querySelector('input[name="mileage"]').value = car.mileage
+            form.querySelector('input[name="engineSize"]').value = car.engineSize 				
+        }
+
+        function clearForm() {
+                var form = document.getElementById('createUpdateForm')
+
+
+                form.querySelector('input[name="registration"]').value = ''
+                form.querySelector('input[name="registration"]').disabled = false
+
+                form.querySelector('input[name="make"]').value = ''
+                form.querySelector('input[name="model"]').value = ''
+                form.querySelector('input[name="colour"]').value = ''
+                form.querySelector('input[name="mileage"]').value = ''
+                form.querySelector('input[name="engineSize"]').value = ''
+            }
+
+        function doCreate(){
+            console.log("in doCreate")
+            car= getCarFromForm()
+            console.log(car)
+            $.ajax({
+                url:"/car",
+                data:JSON.stringify(car),
+                method:"POST",
+                dataType:"JSON",
+                contentType: "application/json; charset=utf-8",
+                success:function(result){
+                    console.log(result) 
+                    addCarToTable(car)
+                    showDisplay()
+                    clearForm()
+
+                },
+                error:function(xhr,status,error){
+                    console.log("error"+error)
+                }
+            })
+           
+        }
+
+        function doUpdate(){
+            car = getCarFromForm()
+            updateServer(car)
+        }
+
+        function updateServer(car){
+           $.ajax({
+                url: "/car/"+car.registration,
+                data: JSON.stringify(car),
+                method: "PUT",
+                dataType: "JSON",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    console.log(result)
+                    updateTableRow(car)
+                    showDisplay()
+                    clearForm()
+
+                },
+                error: function (xhr, status, error) {
+                    console.log("error" + error)
+                }
+            })
+        }
+
+        function doDelete(thisElem){
+            var tableElement = document.getElementById('carTable');
+            var rowElement = thisElem.parentNode.parentNode;
+            var index = rowElement.rowIndex;
+            registration = rowElement.getAttribute("id");
+            $.ajax({
+                url:"/car/"+registration,
+                method:"DELETE",
+                dateType:"JSON",
+                success:function(result){
+                    tableElement.deleteRow(index);
+                },
+                error:function(xhr,status,error){
+                    console.log(error)
+                }
+            })
+            
+        }
+
+        function updateTableRow(car){
+            rowElement = document.getElementById(car.registration)
+            rowElement.cells[1].firstChild.textContent = car.make
+            rowElement.cells[2].firstChild.textContent = car.model
+            rowElement.cells[3].firstChild.textContent = car.colour
+            rowElement.cells[4].firstChild.textContent = car.mileage
+            rowElement.cells[5].firstChild.textContent = car.engineSize				
+            //console.log("updating table")
+        }
+        function getCarFromForm(){
+            var form = document.getElementById('createUpdateForm')
+
+            var car = {}
+            car.registration = form.querySelector('input[name="registration"]').value
+            car.make = form.querySelector('input[name="make"]').value
+            car.model = form.querySelector('input[name="model"]').value
+            car.colour = form.querySelector('input[name="colour"]').value
+            car.mileage = form.querySelector('input[name="mileage"]').value
+            car.engineSize = form.querySelector('input[name="engineSize"]').value				
+            //console.log(car)
+             return car
+        }
+
+         function showDisplay() {
+                document.getElementById('display').style.display = "block"
+                document.getElementById('create-update').style.display = "none"
+
+            }
+
+        function populateTable(){
+            //ajax getAll
+           $.ajax({
+               url:'http://127.0.0.1:5000/car',
+               method:'GET',
+               datatype:'JSON',
+               success:function(results){
+                    for (car of results){
+                         addCarToTable(car)
+                    }
+               },
+               error:function (xhr,status,error){
+                   console.log ("error "+error +" code:"+status)
+               }
+
+           })
+           
+        }
+
+
+        function addCarToTable(car){
+            //console.log("working so far")
+            tableElem = document.getElementById("carTable")
+            rowElem = tableElem.insertRow(-1)
+            rowElem.setAttribute("id", car.registration)
+            cell1 = rowElem.insertCell(0)
+            cell1.innerHTML = car.registration
+            cell2 = rowElem.insertCell(1)
+            cell2.innerHTML = car.make
+            cell3 = rowElem.insertCell(2)
+            cell3.innerHTML = car.model
+            cell4 = rowElem.insertCell(3)
+            cell4.innerHTML = car.colour
+            cell3 = rowElem.insertCell(4)
+            cell3.innerHTML = car.mileage
+            cell4 = rowElem.insertCell(5)
+            cell4.innerHTML = car.engineSize				
+            cell5 = rowElem.insertCell(6)
+            cell5.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+            cell6 = rowElem.insertCell(7)
+            cell6.innerHTML = '<button onclick="doDelete(this)">delete</button>'
+             }
+        populateTable()
+
+//person
+
+function showCreateP(){
+            document.getElementById('displayP').style.display = "none"
+            document.getElementById('update-buttonP').style.display = "none"
+            document.getElementById('create-buttonP').style.display = "block"
+            document.getElementById('create-updateP').style.display = "block"
+
+        }
+
+
+function showUpdateP(thisElem){
+            var rowElement = thisElem.parentNode.parentNode;
+            person = readPersonFromRow(rowElement)
+            populateFormP(person)
+            //registration = rowElement.getAttribute("id");
+
+            //document.getElementById("idInput").value = registration
+            //document.getElementById("idInput").disabled = true
+
+
+            document.getElementById('displayP').style.display = "none"
+            document.getElementById('update-buttonP').style.display = "block"
+            document.getElementById('create-buttonP').style.display = "none"
+            document.getElementById('create-updateP').style.display = "block"
+
+        }
+
+function readPersonFromRow(rowElement){
+            person = {}
+            person.personID = rowElement.getAttribute("id");
+            person.name = rowElement.cells[1].firstChild.textContent
+            person.age = rowElement.cells[2].firstChild.textContent
+            person.sex = rowElement.cells[3].firstChild.textContent
+            person.cregistration = rowElement.cells[4].firstChild.textContent
+            person.isStudent = rowElement.cells[5].firstChild.textContent
+            
+            return person
+            
+        }
+
+function populateFormP(person){
+            var form = document.getElementById('createUpdateFormP')
+
+            
+            form.querySelector('input[name="personID"]').value = person.personID
+            form.querySelector('input[name="personID"]').disabled=true
+            
+            form.querySelector('input[name="name"]').value = person.name
+            form.querySelector('input[name="age"]').value = person.age
+            form.querySelector('input[name="sex"]').value = person.sex 
+            form.querySelector('input[name="cregistration"]').value = person.cregistration
+            form.querySelector('input[name="isStudent"]').value = person.isStudent 				
+        }
+
+function clearFormP() {
+            var form = document.getElementById('createUpdateFormP')
+
+
+            form.querySelector('input[name="personID"]').value = ''
+            form.querySelector('input[name="personID"]').disabled = false
+
+            form.querySelector('input[name="name"]').value = ''
+            form.querySelector('input[name="age"]').value = ''
+            form.querySelector('input[name="sex"]').value = ''
+            form.querySelector('input[name="cregistration"]').value = ''
+            form.querySelector('input[name="isStudent"]').value = ''
+        }
+function doCreateP(){
+            console.log("in doCreate")
+            person= getPersonFromForm()
+            console.log(person)
+            $.ajax({
+                url:"/person",
+                data:JSON.stringify(person),
+                method:"POST",
+                dataType:"JSON",
+                contentType: "application/json; charset=utf-8",
+                success:function(result){
+                    console.log(result) 
+                    addPersonToTable(person)
+                    showDisplayP()
+                    clearFormP()
+
+                },
+                error:function(xhr,status,error){
+                    console.log("error"+error)
+                }
+            })
+           
+        }
+        
+
+function doUpdateP(){
+            person = getPersonFromForm()
+            updateServer(person)
+        }
+
+function updateServer(person){
+           $.ajax({
+                url: "/person/"+person.personID ,
+                data: JSON.stringify(person),
+                method: "PUT",
+                dataType: "JSON",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    console.log(result)
+                    updateTableRow(person)
+                    showDisplayP()
+                    clearFormP()
+
+                },
+                error: function (xhr, status, error) {
+                    console.log("error" + error)
+                }
+            })
+        }
+        
+
+function doDeleteP(thisElem){
+            var tableElement = document.getElementById('personTable');
+            var rowElement = thisElem.parentNode.parentNode;
+            var index = rowElement.rowIndex;
+            personID = rowElement.getAttribute("id");
+            $.ajax({
+                url:"/person/"+personID,
+                method:"DELETE",
+                dateType:"JSON",
+                success:function(result){
+                    tableElement.deleteRow(index);
+                },
+                error:function(xhr,status,error){
+                    console.log(error)
+                }
+            })
+            
+        }
+        
+
+function updateTableRow(person){
+            rowElement = document.getElementById(person.personID)
+            rowElement.cells[1].firstChild.textContent = person.name
+            rowElement.cells[2].firstChild.textContent = person.age
+            rowElement.cells[3].firstChild.textContent = person.sex
+            rowElement.cells[4].firstChild.textContent = person.cregistration
+            rowElement.cells[5].firstChild.textContent = person.isStudent				
+            //console.log("updating table")
+        }
+
+function getPersonFromForm(){
+            var form = document.getElementById('createUpdateFormP')
+
+            var person = {}
+            person.personID = form.querySelector('input[name="personID"]').value
+            person.name = form.querySelector('input[name="name"]').value
+            person.age = form.querySelector('input[name="age"]').value
+            person.sex = form.querySelector('input[name="sex"]').value
+            person.cregistration = form.querySelector('input[name="cregistration"]').value
+            person.isStudent = form.querySelector('input[name="isStudent"]').value	
+            			
+            console.log(person)
+             return person
+        }
+
+function showDisplayP() {
+                document.getElementById('displayP').style.display = "block"
+                document.getElementById('create-updateP').style.display = "none"
+
+            }
+
+function populateTableP(){
+                    //ajax getAll
+                $.ajax({
+                    url:'http://127.0.0.1:5000/person',
+                    method:'GET',
+                    datatype:'JSON',
+                    success:function(results){
+                            for (person of results){
+                                addPersonToTable(person)
+                            }
+                    },
+                    error:function (xhr,status,error){
+                        console.log ("error "+error +" code:"+status)
+                    }
+
+                })
+                
+                }
+
+function addPersonToTable(person){
+            //console.log("working so far")
+            tableElem = document.getElementById("personTable")
+            rowElem = tableElem.insertRow(-1)
+            rowElem.setAttribute("id", person.personID )
+            cell1 = rowElem.insertCell(0)
+            cell1.innerHTML = person.personID
+            cell2 = rowElem.insertCell(1)
+            cell2.innerHTML = person.name
+            cell3 = rowElem.insertCell(2)
+            cell3.innerHTML = person.age
+            cell4 = rowElem.insertCell(3)
+            cell4.innerHTML = person.sex
+            cell3 = rowElem.insertCell(4)
+            cell3.innerHTML = person.cregistration
+            cell4 = rowElem.insertCell(5)
+            cell4.innerHTML = person.isStudent				
+            cell5 = rowElem.insertCell(6)
+            cell5.innerHTML = '<button onclick="showUpdateP(this)">Update</button>'
+            cell6 = rowElem.insertCell(7)
+            cell6.innerHTML = '<button onclick="doDeleteP(this)">delete</button>'
+             }
+        populateTableP()
+    </script>
+</html>
