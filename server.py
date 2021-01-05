@@ -1,14 +1,51 @@
-from flask import Flask, url_for, request, redirect, abort, jsonify
+from flask import Flask, url_for, request, redirect, abort, jsonify, session
 from CarDao import carDao
 from PersonDao import personDao
 
 app = Flask(__name__, static_url_path='', static_folder='staticpages')
-
+app.secret_key = 'someSecrtetasdrgsadfgsdfg3ko'
 
 @app.route('/')
-def index():
-    return "hello"
+def home():
+    if not 'username' in session:
+        return redirect(url_for('login'))
+    
+    # return 'welcome ' + session['username'] +\
+       #  '<br><a href="'+url_for('logout')+'">logout</a>'
+    return redirect('http://127.0.0.1:5000/index.html') 
+    #+ session['username']
+    #'<br><a href="'+url_for('logout')+'">logout</a>'
 
+@app.route('/login')
+def login():
+    return '<h1> Click to login</h1> <br/>'+\
+        '<button>'+\
+            '<a href="'+url_for('proccess_login')+'">' +\
+                'login' +\
+            '</a>' +\
+        '</button>'
+
+@app.route('/processlogin')
+def proccess_login():
+    #check credentials
+    #if bad redirect to login page again
+
+    #else
+    session['username']="I dunno"
+    return redirect(url_for('home'))
+
+@app.route('/logout')
+def logout():
+    session.pop('username',None)
+    return redirect(url_for('home'))
+
+
+@app.route('/data')
+def getData():
+    if not 'username' in session:
+        abort(401)
+    return '{"data":"all here"}'
+    
 
 #get all
 #curl http://127.0.0.1:5000/car
@@ -16,7 +53,7 @@ def index():
 @app.route('/car')
 def getAll():
     return jsonify(carDao.getAll())
-
+    
 @app.route('/person')
 def getAllP():
     return jsonify(personDao.getAllP())
@@ -64,7 +101,7 @@ def createP():
         "name": request.json["name"],
         "age": request.json["age"],
         "sex": request.json["sex"],
-        "registration": request.json["registration"],
+        "cregistration": request.json["cregistration"],
         "isStudent": request.json["isStudent"]
 
     }
@@ -110,8 +147,8 @@ def updateP(personID):
         currentPerson['age'] = request.json['age']
     if 'sex' in request.json:
         currentPerson['sex'] = request.json['sex']
-    if 'registration' in request.json:
-        currentPerson['registration'] = request.json['registration']
+    if 'cregistration' in request.json:
+        currentPerson['cregistration'] = request.json['cregistration']
     if 'isStudent' in request.json:
         currentPerson['isStudent'] = request.json['isStudent']
     personDao.updateP(currentPerson)

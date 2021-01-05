@@ -18,8 +18,9 @@
 * Check FLASK APP and install it  
 * I used a config.py, there is a template of this file in this git repository called 'dbconfigtemplate.py' please rename it and change the credentials. I have *config.py in gitignore. 
 * I have also included sql script (initdb.sql) for the database and the table with sample data. you can use this to create the database (yalinidatarepresentation) and the tables (car and person).
-* "server.py" that implement the REST API 
+* "server.py" that implement the REST API. After you run this file you can login to the local host in the following url http://127.0.0.1:5000/ . If you click the botton login it will take you to the data tables. I haven't set it up with the login credentials for the purpose of this project. 
 * Staticpages folder contains the "login_css.html" and  "index.html" .  "index.html" will use AJAX to link to the server and provide a nice user interface.
+* login_css.html is just another page and it does't do any function. I just wanted to show how another page could be connected to the home page and wanted to style and model a login page. 
 * CarDao.py and PersonDao.py 
 
 Webpage design:
